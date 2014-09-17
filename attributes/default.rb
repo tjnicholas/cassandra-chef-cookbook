@@ -85,6 +85,7 @@ default[:cassandra] = {
   :read_request_timeout_in_ms           => 10000,
   :range_request_timeout_in_ms          => 10000,
   :write_request_timeout_in_ms          => 10000,
+  :cas_contention_timeout_in_ms         => 1000,
   :truncate_request_timeout_in_ms       => 60000,
   :request_timeout_in_ms                => 10000,
   :cross_node_timeout                   => false,

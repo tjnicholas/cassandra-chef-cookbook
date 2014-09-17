@@ -38,7 +38,7 @@ num_tokens: <%=node[:cassandra][:vnodes]%>
 # available, such as is the case with a new cluster, it will pick
 # a random token, which will lead to hot spots.
 <% if node[:cassandra][:vnodes] %>
-initial_token:
+#initial_token:
 <% else %>
 initial_token: <%= node[:cassandra][:initial_token] %>
 <% end %>
@@ -497,6 +497,8 @@ read_request_timeout_in_ms: <%= node[:cassandra][:read_request_timeout_in_ms] %>
 range_request_timeout_in_ms: <%= node[:cassandra][:range_request_timeout_in_ms] %>
 # How long the coordinator should wait for writes to complete
 write_request_timeout_in_ms: <%= node[:cassandra][:write_request_timeout_in_ms] %>
+# New ############################################
+cas_contention_timeout_in_ms: <%= node[:cassandra][:cas_contention_timeout_in_ms] %>
 # How long the coordinator should wait for truncates to complete
 # (This can be much longer, because unless auto_snapshot is disabled
 # we need to flush first so we can snapshot before removing the data.)
@@ -675,7 +677,13 @@ server_encryption_options:
     # store_type: JKS
     # cipher_suites: [TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA]
     # require_client_auth: false
+
+    #Set cipher_suites with 128 bit schemas even if the advance is not enabled
+    cipher_suites: <%= node[:cassandra][:encryption][:server][:cipher_suites] %>
+
     <% end -%>
+
+
 
 # enable or disable client/server encryption.
 client_encryption_options:
